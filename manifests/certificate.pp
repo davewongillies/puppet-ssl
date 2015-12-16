@@ -2,7 +2,9 @@ define ssl::certificate(
   $source,
   $ensure = 'present',
   $private_key = 'private_key.key',
-  $all_in_one = ''
+  $all_in_one = '',
+  $owner = 'root',
+  $group = 'root',
 ) {
 
   file { "/etc/ssl/${name}/":
@@ -14,16 +16,16 @@ define ssl::certificate(
     recurse => true,
     purge   => true,
     force   => true,
-    owner   => 'root',
-    group   => 'root',
+    owner   => $owner,
+    group   => $group,
     mode    => '0644',
   }
 
   file { "/etc/ssl/${name}/${private_key}":
     ensure => $ensure,
     source => "${source}/${private_key}",
-    owner  => 'root',
-    group  => 'root',
+    owner  => $owner,
+    group  => $group,
     mode   => '0640',
   }
 
@@ -31,8 +33,8 @@ define ssl::certificate(
     file { "/etc/ssl/${name}/${all_in_one}":
       ensure => $ensure,
       source => "${source}/${all_in_one}",
-      owner  => 'root',
-      group  => 'root',
+      owner  => $owner,
+      group  => $group,
       mode   => '0640',
     }
   }
