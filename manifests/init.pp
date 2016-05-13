@@ -9,5 +9,6 @@ class ssl {
 
   exec { 'update-ca-certificates':
     refreshonly => true,
+    path        => '/usr/bin:/usr/sbin/:/bin:/sbin:/usr/local/bin:/usr/local/sbin'
   }
 }
